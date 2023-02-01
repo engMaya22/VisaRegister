@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Visa extends Model
 {
@@ -23,5 +24,17 @@ class Visa extends Model
     // ];
     public function user(){
         return $this->belongsTo(User::class);
+    }
+    public function fillViza($data,$personal_destination,$passport_destination ){
+        $this->fill([
+            'nickname' => $data->nickname,
+            'fatherName' => $data->fatherName,
+            'date_of_birth'=> $data->date_of_birth,
+            'arrival_date'=> $data->arrival_date,
+            'proffession'=> $data->proffession,
+            'personal_image' =>$personal_destination,
+            'passport_image' =>$passport_destination,
+        ]);
+
     }
 }

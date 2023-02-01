@@ -27,11 +27,8 @@ class VisaController extends Controller
     { 
         $user = $request->session()->get('user');
         if(!$user) $user = new User();
-        $user->fill([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password'=>  Hash::make($request->password),
-        ]);
+        $request['passowrd'] = Hash::make($request->password);
+        $user->fillUser($request);
         $request->session()->put('user', $user);
         return redirect()->route('visa.create.step.one');
 
@@ -53,15 +50,9 @@ class VisaController extends Controller
         //
         $visa = $request->session()->get('visa');
         if(!$visa) $visa = new Visa();
-        $visa->fill([
-            'nickname' => $request->nickname,
-            'fatherName' => $request->fatherName,
-            'date_of_birth'=> $request->date_of_birth,
-            'arrival_date'=> $request->arrival_date,
-            'proffession'=> $request->proffession,
-            'personal_image' =>$personal_destination,
-            'passport_image' =>$passport_destination,
-        ]);
+        $request['personal_image'] = $personal_destination;
+        $request['passport_image'] = $passport_destination;
+        $visa->fillViza($request ,$personal_destination,$passport_destination );
         $request->session()->put('visa', $visa);
         return redirect()->route('visa.create.step.two');
     }

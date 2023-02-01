@@ -57,4 +57,13 @@ class User extends Authenticatable
     public function residencePrefernces(){
         return $this->hasOne(ResidencePrefernce::class);
     }
+    public function fillUser($data){
+    
+        $this->fill([
+            'name' => $data->name,
+            'email' => $data->email,
+            'password'=> $data->password,
+        ]);
+
+    }
 }
