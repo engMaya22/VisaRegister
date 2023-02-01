@@ -24,24 +24,15 @@ class VisaController extends Controller
     }
     public function postCreateBasicStep(ValidateUser $request)
 
-    {
-        if(empty($request->session()->get('user'))){
-            $user = new User();
-            $user->fill([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password'=>  Hash::make($request->password),
-            ]);
-            $request->session()->put('user', $user);
-        }else{
-            $user = $request->session()->get('user');
-            $user->fill([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password'=>  Hash::make($request->password),
-            ]);
-            $request->session()->put('user', $user);
-        }
+    { 
+        $user = $request->session()->get('user');
+        if(!$user) $user = new User();
+        $user->fill([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password'=>  Hash::make($request->password),
+        ]);
+        $request->session()->put('user', $user);
         return redirect()->route('visa.create.step.one');
 
     }
@@ -58,33 +49,20 @@ class VisaController extends Controller
         move_uploaded_file($filename, $personal_destination); 
         $filename  = $_FILES["passport_image"]["tmp_name"];
         $passport_destination = "upload/" . $_FILES["passport_image"]["name"]; 
-        move_uploaded_file($filename, $passport_destination); 
-        if(empty($request->session()->get('visa'))){
-            $visa = new Visa();
-            $visa->fill([
-                'nickname' => $request->nickname,
-                'fatherName' => $request->fatherName,
-                'date_of_birth'=> $request->date_of_birth,
-                'arrival_date'=> $request->arrival_date,
-                'proffession'=> $request->proffession,
-                'personal_image' =>$personal_destination,
-                'passport_image' =>$passport_destination,
-            ]);
-            $request->session()->put('visa', $visa);
-           
-        }else{
-            $visa = $request->session()->get('visa');
-            $visa->fill([
-                'nickname' => $request->nickname,
-                'fatherName' => $request->fatherName,
-                'date_of_birth'=> $request->date_of_birth,
-                'arrival_date'=> $request->arrival_date,
-                'proffession'=> $request->proffession,
-                'personal_image' =>$personal_destination,
-                'passport_image' =>$passport_destination,
-            ]);
-            $request->session()->put('visa', $visa);
-        }
+        move_uploaded_file($filename, $passport_destination);
+        //
+        $visa = $request->session()->get('visa');
+        if(!$visa) $visa = new Visa();
+        $visa->fill([
+            'nickname' => $request->nickname,
+            'fatherName' => $request->fatherName,
+            'date_of_birth'=> $request->date_of_birth,
+            'arrival_date'=> $request->arrival_date,
+            'proffession'=> $request->proffession,
+            'personal_image' =>$personal_destination,
+            'passport_image' =>$passport_destination,
+        ]);
+        $request->session()->put('visa', $visa);
         return redirect()->route('visa.create.step.two');
     }
 
@@ -100,16 +78,11 @@ class VisaController extends Controller
 
    public function postCreateStepTwo(ValidateProperty $request)
 
-    {
-         if(empty($request->session()->get('residence'))){
-            $residence= new ResidencePrefernce();
-            $residence->fill($request->all());
-            $request->session()->put('residence', $residence);
-        }else{
-            $residence = $request->session()->get('residence');
-            $residence->fill($request->all());
-            $request->session()->put('residence',$residence);
-        }
+    {   
+        $residence = $request->session()->get('residence');
+        if(!$residence) $residence= new ResidencePrefernce();
+        $residence->fill($request->all());
+        $request->session()->put('residence',$residence);
         $user = $request->session()->get('user');
         $visa = $request->session()->get('visa');
         $request->session()->put('user', $user);
@@ -117,6 +90,7 @@ class VisaController extends Controller
         return redirect()->route('visa.create.step.three');
 
     }
+    
 
     public function createStepThree(Request $request)
 
