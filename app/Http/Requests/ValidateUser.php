@@ -24,9 +24,16 @@ class ValidateUser extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'required|string|min:3|max:10',
             'email' => 'required|email|unique:users',
-            'password' => 'required',
+            'password' =>  [
+                'required',
+                'string',
+                'min:10',             
+                'regex:/[a-z]/',    
+                'regex:/[A-Z]/',   
+                'regex:/[0-9]/',    
+            ],
         ];
     }
 }

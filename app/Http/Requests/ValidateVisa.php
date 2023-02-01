@@ -24,13 +24,13 @@ class ValidateVisa extends FormRequest
     public function rules()
     {
         return [
-            'nickname' => 'required',
-            'fatherName' => 'required',
+            'nickname' => 'required|string|min:3|max:10',
+            'fatherName' => 'required|string|min:3|max:10',
             'date_of_birth'=> 'required',
             'arrival_date'=> 'required',
-            'personal_image' => 'required',
-            'passport_image' => 'required',
-            'proffession' => 'required',
+            'personal_image' => 'required|image|mimes:jpeg,jpg,png,gif|max:3000',
+            'passport_image' => 'required|image|mimes:jpeg,jpg,png,gif|max:3000',
+            'proffession' => 'required|string|min:3|max:14',
         ];
     }
 }
