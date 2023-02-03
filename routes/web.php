@@ -25,10 +25,6 @@ use Illuminate\Support\Facades\Route;
     Route::get('/dashboard', function () {
       return view('dashboard');
     })->name('dashboard');
-    Route::get('/send-email', function () {
-      Mail::to('eng.maya.esmaeel1@gmail.com')->send(new InviteUserMail());
-      return response('Sending');
-    });
     Route::get('visa/index', [ VisaController::class,'createBasicStep'])->name('visa.create.step');
     Route::post('visa/create-basic-step', [ VisaController::class,'postCreateBasicStep'])->name('visa.create.step.post');
     Route::get('visa/create-step-one', [ VisaController::class,'createStepOne'])->name('visa.create.step.one');
@@ -45,7 +41,10 @@ use Illuminate\Support\Facades\Route;
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
-   
+    Route::get('/send-email', function () {
+      Mail::to('eng.maya.esmaeel1@gmail.com')->send(new InviteUserMail());
+      return response('Sending');
+    })->middleware(['auth','admincheck']);
       Route::get('/users' , [AdminController::class ,'userInfo'])->middleware(['auth','admincheck'])
       ->name('users.info');
     
