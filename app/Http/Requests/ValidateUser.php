@@ -26,14 +26,16 @@ class ValidateUser extends FormRequest
         return [
             'name' => 'required|string|min:3|max:10',
             'email' => 'required|email|unique:users',
-            'password' =>  [
-                'required',
-                'string',
-                'min:10',             
-                'regex:/[a-z]/',    
-                'regex:/[A-Z]/',   
-                'regex:/[0-9]/',    
-            ],
+            'password' =>  
+                'required|string|min:5',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'name.min:3' => 'you must Inter at least 3 Characters',
+            'name.max:10' => 'you can Inter just to  10 characters',
+            'password.min:5'=>'you must Inter at least 5 Numbers',
         ];
     }
 }

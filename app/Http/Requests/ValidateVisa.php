@@ -33,4 +33,15 @@ class ValidateVisa extends FormRequest
             'proffession' => 'required|string|min:3|max:14',
         ];
     }
+    public function messages()
+    {
+        return [
+            'nickname.min:3' => ' you must Inter at least 3 characters',
+            'nickname.max:10' => ' you can Inter just to  10 characters',
+            'fatherName.min:3' => ' you must Inter at least 3 characters',
+            'fatherName.max:10' => ' you can Inter just to  10 characters',
+            'proffession.min:3' => ' you must Inter at least 3 characters',
+            'proffession.max:14' => ' you can Inter just to  14 characters',
+        ];
+    }
 }
