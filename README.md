@@ -1,9 +1,10 @@
 this task do  
 Visa Register Order where :
-- Admin send guest  emails to inter thier information and check it befor submit visa register order 
+- Admin send guest  emails to inter thier information and check it before submit visa register order 
 - admin dashboard contains information of guests 
 
 - where used  :
-  * multi step form 
-  * email trap 
+  *Laravel
+  * Multi step form 
+  * Mailtrap 
 
