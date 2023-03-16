@@ -7,5 +7,5 @@ Visa Register Order where :
 
   * Laravel
   * Multi step form 
-  * Mailtrap 
+  * mailgun-mailer
 
