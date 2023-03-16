@@ -5,7 +5,7 @@ Visa Register Order where :
 
 - where used  :
 
-  *Laravel
+  * Laravel
   * Multi step form 
   * Mailtrap 
 
