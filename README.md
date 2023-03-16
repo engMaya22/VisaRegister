@@ -1,5 +1,9 @@
-this laravel task :
+this task do  :
 
-- the admin can send  guests email to make them register to Visa 
-where it used multi step form for intering their information  and check it before they submit thier order
-- admin dashboard for admins to review the customers orders and thier information
+- emails sent guest by admin to inter thier information and check it beform submit visa register order 
+- admin dashboard contains information of guests 
+
+- where used  :
+  * multi step form 
+  * email trap 
+
